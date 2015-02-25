@@ -1,0 +1,23 @@
+﻿@model List<Fiap.Anuncios.MVC.WEB.Models.Categoria>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Lista de Categorias</h2>
+
+@Helper.Mensagem(TempData["msg"] as string, "success")
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Nome</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var c in Model)
+        {
+            <tr>
+                <td>@c.Nome</td>
+            </tr>
+        }
+    </tbody>
+</table>

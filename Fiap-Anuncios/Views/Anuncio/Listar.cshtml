@@ -1,0 +1,40 @@
+﻿@model List<Fiap.Anuncios.MVC.WEB.Models.Anuncio>
+@{
+    ViewBag.Title = "Listar";
+}
+
+<h2>Lista de Anúncios</h2>
+
+@using (@Ajax.BeginForm("Buscar", null, new AjaxOptions
+{
+    HttpMethod = "Get",
+    UpdateTargetId = "tabela",
+    InsertionMode = InsertionMode.Replace
+}, new { @class = "form-group" }))
+{
+    <div class="col-md-3">
+        <input type="text" name="Titulo" placeholder="Título" class="form-control" />
+    </div>
+
+    @Helper.Botao("Buscar", "success")
+}
+
+@Helper.Mensagem(TempData["msg"] as string, "success")
+<table class="table table-bordered table-hover">
+    <thead>
+        <tr>
+            <th>Título</th>
+            <th>Comentário</th>
+            <th>Data de Cadastro</th>
+            <th>Descrição</th>
+            <th>Status</th>
+            <th>Valor</th>
+            <th colspan="2">Aprovar / Reprovar</th>
+            <th colspan="2">Ação</th>
+        </tr>
+    </thead>
+    <tbody id="tabela">
+        @Html.Partial("_Tabela", Model)
+    </tbody>
+</table>
+

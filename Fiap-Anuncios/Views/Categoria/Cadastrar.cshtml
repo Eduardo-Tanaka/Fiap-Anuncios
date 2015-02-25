@@ -1,0 +1,22 @@
+﻿@model Fiap.Anuncios.MVC.WEB.Models.Categoria
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastro de Categoria</h2>
+
+@using (@Html.BeginForm("Cadastrar", "Categoria"))
+{
+    @Helper.Mensagem(TempData["msg"] as string, "success")
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(c => c.Nome)
+            @Html.TextBoxFor(c => c.Nome, new { @class = "form-control", placeholder = "Nome" })
+            @Html.ValidationMessageFor(c => c.Nome)
+        </div>
+    </div>
+
+    <div>
+        @Helper.Botao("Cadastrar", "success")
+    </div>
+}

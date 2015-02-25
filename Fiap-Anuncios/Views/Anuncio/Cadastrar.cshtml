@@ -1,0 +1,63 @@
+﻿@model Fiap.Anuncios.MVC.WEB.Models.Anuncio
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastro de Anúncio</h2>
+
+@using (@Html.BeginForm("Cadastrar", "Anuncio"))
+{
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(a => a.Comentario)
+            @Html.TextAreaFor(a => a.Comentario, new { @class = "form-control", placeholder = "Comentário" })
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(a => a.CategoriaId)
+            @Html.DropDownListFor(a => a.CategoriaId, ViewBag.Categorias as SelectList, "Selecione", new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.CategoriaId)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(a => a.DataCadastro)
+            @Html.TextBoxFor(a => a.DataCadastro, new { @class = "form-control" })
+            @Html.ValidationMessageFor(a => a.DataCadastro)
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(a => a.Descricao)
+            @Html.TextBoxFor(a => a.Descricao, new { @class = "form-control", placeholder = "Descrição" })
+            @Html.ValidationMessageFor(a => a.Descricao)
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(a => a.Titulo)
+            @Html.TextBoxFor(a => a.Titulo, new { @class = "form-control", placeholder = "Título" })
+            @Html.ValidationMessageFor(a => a.Titulo)
+        </div>
+        <div class="form-group col-md-6">
+            @Html.LabelFor(a => a.Valor)
+            @Html.TextBoxFor(a => a.Valor, new { @class = "form-control", placeholder = "Valor" })
+        </div>
+    </div>
+
+    <div>
+        @Helper.Botao("Cadastrar", "success")
+    </div>
+}
+
+<script>
+    $().ready(function () {
+        $("#DataCadastro").datepicker({
+            dateFormat: 'dd/mm/yy',
+            dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'],
+            dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+            dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+            monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+            monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+        });
+    })
+</script>

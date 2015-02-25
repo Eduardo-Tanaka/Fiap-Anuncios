@@ -1,0 +1,118 @@
+﻿@foreach (var a in Model)
+{
+    <tr>
+        <td>@a.Titulo</td>
+        <td>@a.Comentario</td>
+        <td>@a.DataCadastro</td>
+        <td>@a.Descricao</td>
+        @if (a.Status == null)
+        {
+            <td>Aguardando</td>
+        }
+        else
+        {
+            <td>@a.Status</td>
+        }
+        <td>@a.Valor</td>
+        <td><button type="button" class="btn btn-success aprovar" value="@a.AnuncioId">Aprovar</button></td>
+        <td><button type="button" class="btn btn-danger reprovar" value="@a.AnuncioId">Reprovar</button></td>
+        @if (a.Status == "Aprovado")
+        {
+            <td>@Html.ActionLink("Editar", "Editar", "Anuncio", new { id = @a.AnuncioId }, new { @class = "btn btn-warning", disabled = "disabled" })</td>
+        }
+        else
+        {
+            <td>@Html.ActionLink("Editar", "Editar", "Anuncio", new { id = @a.AnuncioId }, new { @class = "btn btn-warning" })</td>
+        }
+        <td><button type="button" class="btn btn-danger remover" value="@a.AnuncioId">Remover</button></td>
+    </tr>
+}
+
+<!--Modal para confirmação da exclusão de um anuncio-->
+<div class="modal fade" id="modal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente remover o anúncio?</p>
+                <input type="text" name="Comentario" />
+            </div>
+            <div class="modal-footer">
+                <form action="/Anuncio/Remover" method="post">
+                    <input type="hidden" name="id" id="id-remover" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" id="btn-excluir" value="Excluir" class="btn btn-danger" />
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+<script>
+    $().ready(function () {
+        $(".remover").on("click", function () {
+            $("#modal").modal();
+            $("#id-remover").val($(this).val());
+        })
+
+        $(".aprovar").on("click", function () {
+            $("#aprovar").modal();
+            $("#id-aprovar").val($(this).val());
+        })
+
+        $(".reprovar").on("click", function () {
+            $("#reprovar").modal();
+            $("#id-reprovar").val($(this).val());
+        })
+    })
+</script>
+
+<!--Modal para confirmação da aprovação de um anuncio-->
+<div class="modal fade" id="aprovar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente aprovar o anúncio?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="/Anuncio/Aprovar" method="post">
+                    <input type="hidden" name="id" id="id-aprovar" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" id="btn-excluir" value="Aprovar" class="btn btn-success" />
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--Modal para confirmação da reprovação de um anuncio-->
+<div class="modal fade" id="reprovar">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title">Confirmação</h4>
+            </div>
+            <div class="modal-body">
+                <p>Deseja realmente reprovar o anúncio?</p>
+            </div>
+            <div class="modal-footer">
+                <form action="/Anuncio/Reprovar" method="post">
+                    <div>
+                        <p>Digite o comentário para reprovar o anúncio</p>
+                        <textarea cols="60" rows="3" name="Comentario"></textarea>
+                    </div>
+                    <input type="hidden" name="id" id="id-reprovar" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <input type="submit" id="btn-excluir" value="Reprovar" class="btn btn-danger" />
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->

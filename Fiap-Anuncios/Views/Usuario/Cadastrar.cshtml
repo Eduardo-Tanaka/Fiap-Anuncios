@@ -1,0 +1,37 @@
+﻿@model Fiap.Anuncios.MVC.WEB.Models.Usuario
+@{
+    ViewBag.Title = "Cadastrar";
+}
+
+<h2>Cadastro de Usuário</h2>
+
+@using (@Html.BeginForm("Cadastrar", "Usuario"))
+{
+    @Helper.Mensagem(TempData["msg"] as string, "success")
+    @Html.ValidationSummary()
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(u => u.UserName)
+            @Html.TextBoxFor(u => u.UserName, new { @class = "form-control", placeholder = "Nome" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            @Html.LabelFor(u => u.Password)
+            @Html.PasswordFor(u => u.Password, new { @class = "form-control", placeholder = "Senha" })
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group col-md-6">
+            <label for="Password2">Confirmar Senha</label>
+            <input type="password" name="Password2" id="Password2" class="form-control" placeholder="Confirmar Senha" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+            <input type="submit" value="Cadastrar" class="btn btn-success btn-md" />
+            @Html.ActionLink("Logar", "Index", "Home")
+        </div>
+    </div>
+}
